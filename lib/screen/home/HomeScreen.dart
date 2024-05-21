@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:absen/core/api_service.dart';
-import 'package:absen/izin/IzinScreen.dart';
 import 'package:absen/screen/absen/AbsenScreen.dart';
+import 'package:absen/screen/izin/IzinScreen.dart';
 import 'package:absen/screen/profile/ProfileScreen.dart';
 import 'package:absen/screen/splashscreen/Splashscreen.dart';
 import 'package:dio/dio.dart';

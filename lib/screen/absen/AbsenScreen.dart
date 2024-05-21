@@ -44,7 +44,7 @@ class _AbsenScreen extends State<Absenscreen> {
     }
   }
 
-  bool isHomeScreen = true;
+  bool isHomeScreen = false;
   String userName = '';
   String userId = '';
   String userMasuk = '';
@@ -224,44 +224,31 @@ class _AbsenScreen extends State<Absenscreen> {
 
   bool isAbsenMasuk() {
     DateTime now = DateTime.now();
-    DateTime startTimeMasuk =
-        DateTime(now.year, now.month, now.day, 7, 0); // 7:00 AM
-    DateTime endTimeMasuk =
-        DateTime(now.year, now.month, now.day, 9, 0); // 9:00 AM
-    DateTime startTimeTelat =
-        DateTime(now.year, now.month, now.day, 10, 0); // 10:00 AM
-    DateTime endTimeTelat =
-        DateTime(now.year, now.month, now.day, 15, 0); // 3:00 PM
-    DateTime startTimePulang =
-        DateTime(now.year, now.month, now.day, 15, 0); // 3:00 PM
-    DateTime endTimePulang =
-        DateTime(now.year, now.month, now.day, 19, 0); // 7:00 PM
-    DateTime startTimeLembur =
-        DateTime(now.year, now.month, now.day, 19, 0); // 7:00 PM
+    DateTime startTimeMasuk = DateTime(now.year, now.month, now.day, 6, 0);
+    DateTime endTimeMasuk = DateTime(now.year, now.month, now.day, 12, 0);
+    DateTime startTimeTelat = DateTime(now.year, now.month, now.day, 12, 0);
+    DateTime endTimeTelat = DateTime(now.year, now.month, now.day, 15, 0);
+    DateTime startTimePulang = DateTime(now.year, now.month, now.day, 16, 0);
+    DateTime endTimePulang = DateTime(now.year, now.month, now.day, 21, 0);
+    DateTime startTimeLembur = DateTime(now.year, now.month, now.day, 21, 0);
 
-    return now.isAfter(startTimeMasuk) && now.isBefore(endTimeMasuk);
+    if (now.isAfter(startTimeMasuk) && now.isBefore(endTimeMasuk)) {
+      return true;
+    } else if (now.isAfter(startTimeTelat) && now.isBefore(endTimeTelat)) {
+      return false;
+    } else if (now.isAfter(startTimePulang) && now.isBefore(endTimePulang)) {
+      return false;
+    } else {
+      return false;
+    }
   }
 
   Color getButtonColor() {
-    DateTime now = DateTime.now();
-    DateTime startTimeMasuk =
-        DateTime(now.year, now.month, now.day, 7, 0); // 7:00 AM
-    DateTime endTimeMasuk =
-        DateTime(now.year, now.month, now.day, 9, 0); // 9:00 AM
-    DateTime startTimeTelat =
-        DateTime(now.year, now.month, now.day, 10, 0); // 10:00 AM
-    DateTime endTimeTelat =
-        DateTime(now.year, now.month, now.day, 15, 0); // 3:00 PM
-    DateTime startTimePulang =
-        DateTime(now.year, now.month, now.day, 15, 0); // 3:00 PM
-    DateTime endTimePulang =
-        DateTime(now.year, now.month, now.day, 19, 0); // 7:00 PM
-    DateTime startTimeLembur =
-        DateTime(now.year, now.month, now.day, 19, 0); // 7:00 PMg
-
-    return now.isAfter(startTimeMasuk) && now.isBefore(endTimeMasuk)
-        ? Colors.green // Warna hijau jika jam masuk
-        : Colors.red; // Warna merah jika jam pulang
+    if (isAbsenMasuk()) {
+      return Colors.green;
+    } else {
+      return Colors.red;
+    }
   }
 
   Future<void> getCurrentLocation() async {
@@ -414,7 +401,7 @@ class _AbsenScreen extends State<Absenscreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
+                margin: const EdgeInsets.only(left: 20, right: 20),
                 width: MediaQuery.of(context).size.width * 25.0,
                 decoration: BoxDecoration(
                   color:
@@ -434,20 +421,21 @@ class _AbsenScreen extends State<Absenscreen> {
                     Row(
                       children: [
                         Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                          ),
                           child: Row(
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.access_time,
                                 size: 20,
                                 color: Color.fromARGB(255, 85, 85, 85),
                               ),
-                              SizedBox(width: 15),
+                              const SizedBox(width: 15),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Lokasi Saat ini",
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
@@ -456,7 +444,7 @@ class _AbsenScreen extends State<Absenscreen> {
                                   ),
                                   Text(
                                     address,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -497,7 +485,7 @@ class _AbsenScreen extends State<Absenscreen> {
                                         ? "Hari ini Libur"
                                         : "Jam Kerja $userMasuk - $userPulang WIB",
                                     textAlign: TextAlign.left,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 12,
                                     ),
                                   ),
@@ -524,14 +512,6 @@ class _AbsenScreen extends State<Absenscreen> {
                                   ),
                                 ],
                               ),
-
-                              //** START ABSENNSI BUTTON */
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: buildButton(),
-                              ),
-                              //** END ABSENNSI BUTTON */
                             ],
                           ),
                         ),
@@ -540,29 +520,38 @@ class _AbsenScreen extends State<Absenscreen> {
                   ],
                 ),
               ),
+              const SizedBox(
+                height: 10,
+              ),
+              //** START ABSENNSI BUTTON */
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: buildButton(),
+              ),
+              //** END ABSENNSI BUTTON */
             ],
           ),
         ],
       ),
 
       //** NABAR BUTTON */
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 5, top: 5),
-        child: FloatingActionButton(
-          backgroundColor: isHomeScreen
-              ? const Color.fromARGB(255, 0, 166, 255)
-              : Colors.grey,
-          onPressed: () {
-            getFromCamera();
-          },
-          shape: const CircleBorder(),
-          child: const Icon(
-            Icons.fingerprint_rounded,
-            size: 30,
-            color: Colors.white,
-          ),
-        ),
-      ),
+      // floatingActionButton: Padding(
+      //   padding: const EdgeInsets.only(bottom: 5, top: 5),
+      //   child: FloatingActionButton(
+      //     backgroundColor: isHomeScreen
+      //         ? const Color.fromARGB(255, 0, 166, 255)
+      //         : Colors.grey,
+      //     onPressed: () {
+      //       getFromCamera();
+      //     },
+      //     shape: const CircleBorder(),
+      //     child: const Icon(
+      //       Icons.fingerprint_rounded,
+      //       size: 30,
+      //       color: Colors.white,
+      //     ),
+      //   ),
+      // ),
 
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       extendBody: true,
@@ -573,7 +562,7 @@ class _AbsenScreen extends State<Absenscreen> {
               color: Colors.black.withOpacity(0.2),
               spreadRadius: 1,
               blurRadius: 5,
-              offset: Offset(0, 3), // changes position of shadow
+              offset: const Offset(0, 3),
             ),
           ],
         ),
@@ -634,48 +623,73 @@ class _AbsenScreen extends State<Absenscreen> {
         DateTime.now().weekday == DateTime.sunday) {
       return const SizedBox.shrink();
     } else {
-      return Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 10,
-        ),
-        child: Material(
-          elevation: 3,
-          borderRadius: BorderRadius.circular(20),
-          child: Container(
-            height: 30,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: getButtonColor(),
-            ),
-            child: Material(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.transparent,
-              child: InkWell(
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () {
-                  setState(() {
-                    _submitAbsensi();
-                  });
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    const SizedBox(width: 10),
-                    Text(
-                      isAbsenMasuk() ? 'Masuk' : 'Pulang',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
+      return Positioned(
+        bottom: 20,
+        right: 10,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Material(
+            elevation: 3,
+            borderRadius: BorderRadius.circular(20),
+            child: Container(
+              height: 40,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: getButtonColor(),
+              ),
+              child: Material(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.transparent,
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () {
+                    setState(() {
+                      _submitAbsensi();
+                    });
+                  },
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 10,
+                            ),
+                            child: Icon(
+                              Icons.work_outline,
+                              color: Colors.white,
+                              size: 25,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                            ),
+                            child: Text(
+                              isAbsenMasuk() ? 'Masuk' : 'Pulang',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 10,
+                            ),
+                            child: Icon(
+                              Icons.arrow_circle_right_rounded,
+                              color: Colors.white,
+                              size: 25,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    const Icon(
-                      Icons.arrow_circle_right_rounded,
-                      color: Colors.white,
-                      size: 25,
-                    ),
-                    const SizedBox(width: 5),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
