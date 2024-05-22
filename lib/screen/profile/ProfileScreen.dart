@@ -78,7 +78,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       } else {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => SplashScreen()),
+          MaterialPageRoute(builder: (context) => const SplashScreen()),
         );
       }
     } catch (e) {
@@ -94,14 +94,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Konfirmasi Logout"),
-          content: Text("Anda yakin ingin keluar?"),
+          title: const Text("Konfirmasi Logout"),
+          content: const Text("Anda yakin ingin keluar?"),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text("Batal"),
+              child: const Text("Batal"),
             ),
             TextButton(
               onPressed: () async {
@@ -120,7 +120,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       await prefs.remove('token');
                       Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => SplashScreen()),
+                        MaterialPageRoute(
+                            builder: (context) => const SplashScreen()),
                         (route) => false,
                       );
                     } else {
@@ -130,15 +131,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text("Gagal Logout"),
-                            content: Text(
+                            title: const Text("Gagal Logout"),
+                            content: const Text(
                                 "Gagal melakukan logout. Silakan coba lagi."),
                             actions: [
                               TextButton(
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
-                                child: Text("Tutup"),
+                                child: const Text("Tutup"),
                               ),
                             ],
                           );
@@ -156,15 +157,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: Text("Error"),
-                        content: Text(
+                        title: const Text("Error"),
+                        content: const Text(
                             "Terjadi kesalahan saat melakukan logout. Silakan coba lagi."),
                         actions: [
                           TextButton(
                             onPressed: () {
                               Navigator.of(context).pop(); // Tutup dialog
                             },
-                            child: Text("Tutup"),
+                            child: const Text("Tutup"),
                           ),
                         ],
                       );
@@ -172,7 +173,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   );
                 }
               },
-              child: Text("Keluar"),
+              child: const Text("Keluar"),
             ),
           ],
         );
@@ -188,14 +189,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
       fit: StackFit.expand,
       children: [
         Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Color.fromARGB(255, 0, 166, 255),
           ),
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
           body: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 45),
               child: Column(
@@ -246,12 +247,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                                 child: Column(
                                   children: [
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 150,
                                     ),
                                     Text(
                                       userName.toString(),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Color.fromRGBO(39, 105, 171, 1),
                                         fontFamily: 'Nunito',
                                         fontSize: 24,
@@ -259,13 +260,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     ),
                                     Text(
                                       userNik.toString(),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Color.fromRGBO(39, 105, 171, 1),
                                         fontFamily: 'Nunito',
                                         fontSize: 14,
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 5,
                                     ),
                                     Row(
@@ -287,7 +288,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       userDivision!.isNotEmpty
                                                   ? userDivision!
                                                   : 'Tidak ada divisi',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 color: Color.fromRGBO(
                                                     39, 105, 171, 1),
                                                 fontFamily: 'Nunito',
@@ -326,7 +327,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       userRoles!.isNotEmpty
                                                   ? userRoles!.join(', ')
                                                   : 'Tidak ada jabatan',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 color: Color.fromRGBO(
                                                     39, 105, 171, 1),
                                                 fontFamily: 'Nunito',
@@ -337,7 +338,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         ),
                                       ],
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 5,
                                     ),
                                     Text(
@@ -356,7 +357,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               right: 0,
                               child: Center(
                                 child: ClipOval(
-                                  child: Container(
+                                  child: SizedBox(
                                     width: innerWidth * 0.5,
                                     height: innerWidth * 0.5,
                                     child: Image.asset(
@@ -372,7 +373,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       },
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Column(
@@ -384,11 +385,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             onPressed: () {},
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 15),
-                              textStyle: TextStyle(fontSize: 15),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              textStyle: const TextStyle(fontSize: 15),
                             ),
-                            child: Row(
+                            child: const Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Icon(
@@ -403,15 +404,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ),
                                 ),
                                 Icon(
-                                  Icons.arrow_forward,
+                                  Icons.arrow_forward_ios_outlined,
                                   color: Color.fromARGB(255, 0, 166, 255),
+                                  size: 20,
                                 ),
                               ],
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Center(
@@ -421,13 +423,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             onPressed: () {},
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 15),
-                              textStyle: TextStyle(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              textStyle: const TextStyle(
                                 fontSize: 16,
                               ),
                             ),
-                            child: Row(
+                            child: const Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Icon(
@@ -443,8 +445,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ),
                                 ),
                                 Icon(
-                                  Icons.arrow_forward,
+                                  Icons.arrow_forward_ios_outlined,
                                   color: Color.fromARGB(255, 0, 166, 255),
+                                  size: 20,
                                 ),
                               ],
                             ),
@@ -462,8 +465,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           floatingActionButton: Padding(
             padding: const EdgeInsets.only(bottom: 5, top: 5),
             child: FloatingActionButton(
-              backgroundColor:
-                  isHomeScreen ? Color.fromARGB(255, 0, 166, 255) : Colors.grey,
+              backgroundColor: isHomeScreen
+                  ? const Color.fromARGB(255, 0, 166, 255)
+                  : Colors.grey,
               onPressed: () {
                 Navigator.push(
                   context,

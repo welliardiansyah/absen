@@ -45,6 +45,8 @@ dependencies:
   dotted_border: ^2.0.0+3
   geolocator: ^7.0.3
   geocoding: ^2.1.1
+  http: ^1.2.1
+  http_parser: ^4.0.0
 
 dev_dependencies:
   flutter_test:
